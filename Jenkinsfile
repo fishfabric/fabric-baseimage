@@ -6,12 +6,28 @@ pipeline {
     }
 
     stages {
-        stage('build & push image') {
+        stage('prepare') {
+            steps {
+                sh '''
+                make clean
+                aws ecr get-login-password | docker login --username AWS --password-stdin ${DOCKER_REGISTRY}
+                '''
+            }
+        }
+
+        stage('build docker') {
+            steps {
+                sh '''
+                make docker
+                '''
+            }
+        }
+
+        stage('push image') {
             parallel {
                 stage('baseos') {
                     steps {
                         sh '''
-                        aws ecr get-login-password | docker login --username AWS --password-stdin ${DOCKER_REGISTRY}
                         make build/docker/baseos/.push
                         '''
                     }
@@ -20,7 +36,6 @@ pipeline {
                 stage('baseimage') {
                     steps {
                         sh '''
-                        aws ecr get-login-password | docker login --username AWS --password-stdin ${DOCKER_REGISTRY}
                         make build/docker/baseimage/.push
                         '''
                     }
