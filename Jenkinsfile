@@ -19,12 +19,10 @@ pipeline {
 
                 stage('baseimage') {
                     steps {
-                        steps {
-                            sh '''
-                            aws ecr get-login-password | docker login --username AWS --password-stdin ${DOCKER_REGISTRY}
-                            make build/docker/baseimage/.push
-                            '''
-                        }
+                        sh '''
+                        aws ecr get-login-password | docker login --username AWS --password-stdin ${DOCKER_REGISTRY}
+                        make build/docker/baseimage/.push
+                        '''
                     }
                 }
             }
