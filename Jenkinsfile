@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_NS = "${DOCKER_REGISTRY}/twbc"
+        VERSION = "0.4.22-gm-build-${BUILD_NUMBER}"
     }
 
     stages {
