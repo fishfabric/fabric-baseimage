@@ -10,3 +10,4 @@ RUN cd /tmp/scripts && \
     docker/init.sh && \
     common/cleanup.sh && \
     rm -rf /tmp/scripts
+ADD build/lib/libxsign.so /usr/lib/libxsign.so

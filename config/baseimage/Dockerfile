@@ -14,3 +14,4 @@ RUN cd /tmp/scripts && \
 ENV GOPATH=/opt/gopath
 ENV GOROOT=/opt/go
 ENV PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+ADD build/lib/libxsign.so /usr/lib/libxsign.so

@@ -53,7 +53,11 @@ DUMMY = .$(DOCKER_TAG)
 
 all: docker dependent-images
 
-build/docker/%/$(DUMMY):
+build/lib/libxsign.so:
+	@mkdir -p build/lib
+	cp /usr/lib/libxsign.so ./build/lib
+
+build/docker/%/$(DUMMY): build/lib/libxsign.so
 	$(eval TARGET = ${patsubst build/docker/%/$(DUMMY),%,${@}})
 	$(eval DOCKER_NAME = $(BASENAME)-$(TARGET))
 	@mkdir -p $(@D)
