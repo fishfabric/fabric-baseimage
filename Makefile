@@ -93,9 +93,6 @@ build/image/%/$(DUMMY):
 	@touch $@
 
 build/image/%/.push: build/image/%/$(DUMMY)
-	@docker login \
-		--username=$(DOCKER_HUB_USERNAME) \
-		--password=$(DOCKER_HUB_PASSWORD)
 	@docker push $(BASENAME)-$(patsubst build/image/%/.push,%,$@):$(DOCKER_TAG)
 
 clean:

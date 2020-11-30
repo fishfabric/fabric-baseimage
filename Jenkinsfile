@@ -3,8 +3,6 @@ pipeline {
 
     environment {
         DOCKER_NS = "${DOCKER_REGISTRY}/twbc"
-        DOCKER_HUB_USERNAME = 'AWS'
-        DOCKER_HUB_PASSWORD = sh(script: 'aws ecr get-login-password', returnStdout: true)
     }
 
     stages {
@@ -13,6 +11,7 @@ pipeline {
                 stage('baseos') {
                     steps {
                         sh '''
+                        aws ecr get-login-password | docker login --username AWS --password-stdin ${DOCKER_REGISTRY}
                         make build/docker/baseos/.push
                         '''
                     }
@@ -22,6 +21,7 @@ pipeline {
                     steps {
                         steps {
                             sh '''
+                            aws ecr get-login-password | docker login --username AWS --password-stdin ${DOCKER_REGISTRY}
                             make build/docker/baseimage/.push
                             '''
                         }
