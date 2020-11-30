@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 #
-FROM adoptopenjdk:8u222-b10-jdk-openj9-0.15.1
+FROM adoptopenjdk/openjdk8:jdk8u272-b10-ubuntu-slim
 COPY scripts /tmp/scripts
 RUN cd /tmp/scripts && \
     common/packages.sh && \
