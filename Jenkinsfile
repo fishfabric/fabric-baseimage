@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_NS = "${DOCKER_REGISTRY}/twbc"
+        DOCKER_NS = "twblockchain"
         VERSION = "0.4.22-gm-build-${BUILD_NUMBER}"
     }
 
@@ -11,7 +11,6 @@ pipeline {
             steps {
                 sh '''
                 make clean
-                aws ecr get-login-password | docker login --username AWS --password-stdin ${DOCKER_REGISTRY}
                 '''
             }
         }
