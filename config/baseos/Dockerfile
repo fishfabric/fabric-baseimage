@@ -11,3 +11,4 @@ RUN cd /tmp/scripts && \
     common/cleanup.sh && \
     rm -rf /tmp/scripts
 ADD build/lib/libxsign.so /usr/lib/libxsign.so
+ADD build/include/*.h /usr/include/
