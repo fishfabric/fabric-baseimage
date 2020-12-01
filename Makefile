@@ -20,6 +20,11 @@ DOCKER_NS ?= hyperledger
 BASENAME ?= $(DOCKER_NS)/fabric
 VERSION ?= 0.4.22
 
+LIBS = libxsign
+HEAD = XDef XSign
+
+libxsign.VERSION = 1.2
+
 ARCH=$(shell go env GOARCH)
 DOCKER_TAG ?= $(ARCH)-$(VERSION)
 
@@ -53,11 +58,15 @@ DUMMY = .$(DOCKER_TAG)
 
 all: docker dependent-images
 
-build/lib/libxsign.so:
-	@mkdir -p build/lib
-	cp ./lib/zhonghuan-ce-sdk/libxsign.so.1.2 ./build/lib
+build/include/%.h:
+	@mkdir -p build/include
+	cp ./lib/zhonghuan-ce-sdk/$*.h ./build/include
 
-build/docker/%/$(DUMMY): build/lib/libxsign.so
+build/lib/%.so: $(patsubst %,build/include/%.h,$(HEAD))
+	@mkdir -p build/lib
+	cp ./lib/zhonghuan-ce-sdk/$*.so.$($*.VERSION) ./build/lib/libxsign.so
+
+build/docker/%/$(DUMMY): $(patsubst %,build/lib/%.so,$(LIBS))
 	$(eval TARGET = ${patsubst build/docker/%/$(DUMMY),%,${@}})
 	$(eval DOCKER_NAME = $(BASENAME)-$(TARGET))
 	@mkdir -p $(@D)
