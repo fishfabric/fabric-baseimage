@@ -78,10 +78,8 @@ build/docker/%/$(DUMMY): $(patsubst %,build/lib/%.so,$(LIBS))
 	@touch $@
 
 build/docker/%/.push: build/docker/%/$(DUMMY)
-	@docker login \
-		--username=$(DOCKER_HUB_USERNAME) \
-		--password=$(DOCKER_HUB_PASSWORD)
 	@docker push $(BASENAME)-$(patsubst build/docker/%/.push,%,$@):$(DOCKER_TAG)
+	@docker push $(BASENAME)-$(patsubst build/docker/%/.push,%,$@):latest
 
 docker: $(patsubst %,build/docker/%/$(DUMMY),$(DOCKER_IMAGES))
 
