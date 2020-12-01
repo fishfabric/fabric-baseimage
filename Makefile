@@ -55,7 +55,7 @@ all: docker dependent-images
 
 build/lib/libxsign.so:
 	@mkdir -p build/lib
-	cp /usr/lib/libxsign.so ./build/lib
+	cp ./lib/zhonghuan-ce-sdk/libxsign.so.1.2 ./build/lib
 
 build/docker/%/$(DUMMY): build/lib/libxsign.so
 	$(eval TARGET = ${patsubst build/docker/%/$(DUMMY),%,${@}})
