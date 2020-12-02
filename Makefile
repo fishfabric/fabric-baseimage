@@ -23,7 +23,7 @@ VERSION ?= 0.4.22
 LIBS = libxsign
 HEAD = XDef XSign
 
-libxsign.VERSION = 1.2
+libxsign.VERSION = 1.4
 
 ARCH=$(shell go env GOARCH)
 DOCKER_TAG ?= $(ARCH)-$(VERSION)
